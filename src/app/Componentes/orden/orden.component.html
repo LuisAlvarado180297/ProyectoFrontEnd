@@ -1,0 +1,380 @@
+<div class="row mt-4 ">
+  <div class="col-md-8">
+    <h3>{{Titulo}}</h3>
+  </div>    
+<div class="col-md-4 text-md-end d-none  d-md-block">
+  <div class="btn-group">
+    <button class="btn btn-sm btn-danger  " title="Salir a la pantalla de ordenes" [routerLink]="['/']" ><i class="fas fa-sign-out"></i> Salir</button>
+    <button class="btn btn-sm btn-primary  " title="Guardar" *ngIf="OrdenId == 0 " (click)="fnGuardar()"><i class="fas fa-floppy-disk"></i> Guardar</button>
+    <button class="btn btn-sm btn-success  " title="Pagar" *ngIf="OrdenId > 0 " (click)="fnPagar()"><i class="fas fa-money-bill"></i> Pagar</button>
+  </div>
+  </div>    
+    <hr>
+</div>
+<div class="row">
+  
+      <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" [destroyOnHide]="false">
+        
+        <!-- Tab para los datos generales de la orden -->
+        <li [ngbNavItem]="1">
+          <a ngbNavLink>Datos Generales</a>
+
+          <ng-template ngbNavContent>
+
+            <form>
+                
+                <div class="row">
+                  <div class="col-md-3 ">
+                    <div class="form-group">
+                      <label for="staticNombres" class=" col-form-label">Nombre(s) <span style="color: red;">*</span>:</label>
+                      <div class="col-sm-12">
+                        <input type="text" placeholder="Ingrese los nombres de quien recibira el pedido" class="form-control form-control-sm" id="staticNombres" name="txtNombres" 
+                         [disabled]="DeshabilitarCampos" [(ngModel)]="DatosEnvio.firstName"   required >
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="col-md-3 ">
+                    <div class="form-group">
+                      <label for="staticApellidos"  class=" col-form-label">Apellido(s) <span style="color: red;">*</span>:</label>
+                      <div class="col-sm-12">
+                        <input type="text" placeholder="Ingrese los apellidos de quien recibira el pedido" class="form-control form-control-sm" id="staticApellidos" name="txtApellidos" required
+                         [disabled]="DeshabilitarCampos" [(ngModel)]="DatosEnvio.lastName">
+                      </div>
+                    </div>
+                  </div> 
+  
+                  <div class="col-md-3 ">
+                    <div class="form-group">
+                      <label for="staticDni" class=" col-form-label">Dni: </label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control form-control-sm" placeholder="Ingrese la dni de la persona a quien se envia" id="staticDni" name="txtDni" 
+                         [disabled]="DeshabilitarCampos" [(ngModel)]="DatosEnvio.dni">
+                      </div>
+                    </div>
+                  </div> 
+
+                  <div class="col-md-3 ">
+                    <div class="form-group">
+                      <label for="staticidentificationNumber " class=" col-form-label">No. Identificacion: </label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control form-control-sm" placeholder="Ingrese el número de identificacion" id="staticidentificationNumber" name="txtidentificationNumber" 
+                         [disabled]="DeshabilitarCampos" [(ngModel)]="DatosEnvio.identificationNumber">
+                      </div>
+                    </div>
+                  </div> 
+
+                  <div class="col-md-6 ">
+                    <div class="form-group">
+                      <label for="staticcalle1" class=" col-form-label">Calle 1 <span style="color:red">*</span>:</label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control form-control-sm" id="staticcalle1" placeholder="Ingrese el nombre de la calle 1" name="txtcalle1" required
+                         [disabled]="DeshabilitarCampos" [(ngModel)]="DatosEnvio.address1">
+                      </div>
+                    </div>
+                  </div> 
+
+                  <div class="col-md-6 ">
+                    <div class="form-group">
+                      <label for="staticcalle12" class=" col-form-label">Calle 2:</label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control form-control-sm" id="staticcalle2" name="txtcalle2" placeholder="Ingrese el nombre de la calle 2" 
+                         [disabled]="DeshabilitarCampos" [(ngModel)]="DatosEnvio.address2">
+                      </div>
+                    </div>
+                  </div> 
+
+                  <div class="col-md-6 ">
+                    <div class="form-group">
+                      <label for="staticcalle3" class=" col-form-label">Calle 3:</label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control form-control-sm" id="staticcalle2" name="txtcalle3" placeholder="Ingrese el nombre de la calle 3"
+                         [disabled]="DeshabilitarCampos" [(ngModel)]="DatosEnvio.address3">
+                      </div>
+                    </div>
+                  </div> 
+
+                  <div class="col-md-3 ">
+                    <div class="form-group">
+                      <label for="staticpais" class=" col-form-label">País: </label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control form-control-sm" id="staticpais" name="txtpais" placeholder="Ingrese el país destino"
+                         [disabled]="DeshabilitarCampos" [(ngModel)]="DatosPais.name">
+                      </div>
+                    </div>
+                  </div> 
+
+                  <div class="col-md-3 ">
+                    <div class="form-group">
+                      <label for="staticciudad" class=" col-form-label">Ciudad: <span style="color:red">*</span> :</label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control form-control-sm" id="staticciudad" name="txtciudad" required placeholder="Ingrese la ciudad destino"
+                         [disabled]="DeshabilitarCampos" [(ngModel)]="DatosEnvio.city">
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-3 ">
+                    <div class="form-group">
+                      <label for="staticcodigopostal" class=" col-form-label">Codigo Postal: <span style="color: red">*</span>: </label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control form-control-sm" id="staticcodigopostal" name="txtcodigopostal" required placeholder="64000"
+                         [disabled]="DeshabilitarCampos" [(ngModel)]="DatosEnvio.postalCode">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3 ">
+                    <div class="form-group">
+                      <label for="statictelefono" class=" col-form-label">Telefono: <span style="color: red;">*</span>: </label>
+                      <div class="col-sm-12">
+                        <input type="tel" class="form-control form-control-sm" id="statictelefono" name="txttelefono" required placeholder="000-000-00"
+                         [disabled]="DeshabilitarCampos" maxlength="10" [(ngModel)]="DatosEnvio.phone">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3 ">
+                    <div class="form-group">
+                      <label for="staticemail" class=" col-form-label">Email: </label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control form-control-sm" id="staticemail" name="txtemail" placeholder="Ingrese un correo de contacto"
+                         [disabled]="DeshabilitarCampos" [(ngModel)]="DatosEnvio.email">
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-3 ">
+                    <div class="form-group">
+                      <label for="staticcompania" class=" col-form-label">Compañia: </label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control form-control-sm" id="staticcompania" name="txtcompania" 
+                         [disabled]="DeshabilitarCampos" [(ngModel)]="DatosEnvio.company">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="staticreferencia" class=" col-form-label">Referencias: </label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control form-control-sm" id="staticreferencia" name="txtreferencia" placeholder="Ingrese una referencia para tener mayor información"
+                         [disabled]="DeshabilitarCampos" [(ngModel)]="DatosEnvio.references">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+          </ng-template>
+        </li>
+
+
+
+
+        <!-- Descripciones de producto -->
+        <li [ngbNavItem]="2" >
+          <a ngbNavLink>Productos</a>
+          <ng-template ngbNavContent>
+            
+<div class="row">
+  <div class="col-md-12" *ngIf="OrdenId == 0">
+    
+
+    <div class="card col-md-12" >
+      <div class="card-body">
+        <form class="row " novalidate>
+    
+          <p>Capture los datos para realizar la captura de productos</p>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label class="control-label" >sku:</label>
+              <div class="col-md-12">
+                <input type="text" class="form-control form-control-sm " [(ngModel)]="FormularioProducto.sku" id="txtFormsku" name="txtFormsku" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label class="control-label">Descripción:</label>
+              <div class="col-md-12">
+                <input type="text" class="form-control form-control-sm" [(ngModel)]="FormularioProducto.descripcion" id="txtFormdescripcion" name="txtFormdescripcion" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-1">
+            <div class="form-group">
+              <label class="control-label">Cantidad:</label>
+              <div class="col-md-12">
+                <input type="number" min="1" class="form-control form-control-sm" [(ngModel)]="FormularioProducto.cantidad" id="txtFormcantidad" name="txtFormcantidad">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="form-group">
+              <label class="control-label">Precio Unit:</label>
+              <div class="col-md-12">
+                <input type="number" min="1" class="form-control form-control-sm" placeholder="$0.00" [(ngModel)]="FormularioProducto.precioUnitario" id="txtFormprecioUnitario" name="txtFormprecioUnitario">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-1">
+            <div class="form-group">
+              <label class="control-label">Impuestos:</label>
+              <div class="col-md-12">
+                <input type="number" min="0" class="form-control form-control-sm" placeholder="$0.00" [(ngModel)]="FormularioProducto.impuestos" id="txtFormimpuestos" name="txtFormimpuestos">
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-1">
+            <div class="form-group">
+              <label class="control-label">Descuento:</label>
+              <div class="col-md-12">
+                <input type="number" min="0" class="form-control form-control-sm" placeholder="$0.00" [(ngModel)]="FormularioProducto.descuento" id="txtFormdescuento" name="txtFormdescuento">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-2 mt-2 mb-2">
+            <div class="form-group">
+              <div class="col-md-12">
+                <button class="btn btn-sm btn-primary" title="Agregar producto" (click)="fnAgregarProducto()"><i class=" fas fa-plus"></i> Agregar</button>
+            
+              </div>
+              
+            </div>
+            
+          </div>
+        </form>
+        </div>
+       
+      </div>
+      
+    </div>
+
+
+
+  <div class="col-md-8">
+            
+    <kendo-grid
+    [data]="ListItems"
+    style="height: 70vh;"
+    [filterable]="false"
+    [sortable]="false"
+    [pageable]="true"
+    [pageSize]="15">
+
+    <kendo-grid-column [width]="50"  title=""> 
+        <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+          <div class="text-center">
+            <img style="max-width: 80%; max-height:auto;" src="https://www.itaipharma.es/wp-content/uploads/2016/03/Sin_imagen_disponible-300x225.jpg"/>
+          </div>  
+          
+          </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column [width]="50" field="sku" title="sku"></kendo-grid-column>
+    <kendo-grid-column [width]="120" field="name" title="Producto"></kendo-grid-column>
+    <kendo-grid-column [width]="40" field="quantity" title="Cantidad"></kendo-grid-column>
+    <kendo-grid-column [width]="50" field="price" title="Precio" filter="numeric"
+    format="{0:c}"></kendo-grid-column>
+    <kendo-grid-column [width]="50" field="discount" title="Descuento" filter="numeric"
+    format="{0:c}"></kendo-grid-column>
+    
+
+    </kendo-grid>
+</div>
+            <!-- Seccion de resumen de totales -->
+  <div class="col-md-4 col-sm-6 text-md-end mt-3 mb-3">
+   
+    <div class="row">
+      <div class="col-md-8">
+         Subtotal sin descuento: 
+      </div>
+      <div class="col-md-4">
+        <label class="control-label" ><strong>${{fnObtenerResumen().subtotalSinDescuento || 0}}</strong></label>
+      </div>
+  
+     </div>
+   
+    <div class="row">
+      <div class="col-md-8">
+         Descuentos: 
+      </div>
+      <div class="col-md-4">
+        <label class="control-label" style="color: red;"><strong>${{fnObtenerResumen().discount || 0}}</strong></label>
+      </div>
+  
+     </div>
+   
+    <div class="row">
+      <div class="col-md-8">
+        Subtotal:
+      </div>
+      <div class="col-md-4">
+        <label class="control-label"><strong>${{fnObtenerResumen().subtotal || 0}}</strong></label>         
+      </div>
+
+   </div>
+   <div class="row">
+    <div class="col-md-8">
+       Impuestos:
+    </div>
+    <div class="col-md-4">
+      <label class="control-label" ><strong>${{fnObtenerResumen().tax || 0}}</strong></label>
+    </div>
+
+   </div>
+   
+   <div class="row">
+    <hr>
+    <div class="col-md-8">
+       Total: 
+    </div>
+    <div class="col-md-4">
+      <label class="control-label"><strong>${{fnObtenerResumen().total || 0}}</strong></label>
+    </div>
+
+   </div>
+    
+   </div>
+    
+
+    
+  </div>
+  
+
+
+            
+            
+          </ng-template>
+        </li>
+        
+      </ul>
+
+      <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    
+</div>
+
+<div class="row d-block  mt-2 mb-2 d-md-none" >
+
+  <div class="col-sm-12 text-center ">
+    <div class="btn-group">
+      
+      <button class="btn btn-sm btn-danger  " title="Salir a la pantalla de ordenes" [routerLink]="['/']" ><i class="fas fa-sign-out"></i> Salir</button>
+      <button class="btn btn-sm btn-primary  " title="Guardar" *ngIf="OrdenId == 0 " (click)="fnGuardar()"><i class="fas fa-floppy-disk"></i> Guardar</button>
+    <button class="btn btn-sm btn-success  " title="Pagar" *ngIf="OrdenId > 0 " (click)="fnPagar()"><i class="fas fa-money-bill"></i> Pagar</button>
+    </div>
+    
+    </div>    
+  
+</div>
+
+
